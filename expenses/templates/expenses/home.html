@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Expense Tracker</title>
+</head>
+
+<body>
+
+    <h1>Welcome to my Expense Tracker!</h1>
+
+    <a href="/add-expense/">
+        <button>Add Expense</button>
+    </a>
+
+    <h2>Your Expenses</h2>
+
+    {% for expense in expenses %}
+
+        <div>
+            <p><strong>{{ expense.category }}</strong></p>
+            <p>Amount: ₹{{ expense.amount }}</p>
+            <p>{{ expense.description }}</p>
+            <p>Date: {{ expense.date }}</p>
+             
+            <a href="/edit-expense/{{ expense.id }}/">
+                <button>Edit</button>
+            </a>
+            <a href="/delete-expense/{{ expense.id }}/">
+                <button>Delete</button>
+            </a>
+        </div>
+
+        <hr>
+
+    {% empty %}
+
+        <p>No expenses added yet.</p>
+
+    {% endfor %}
+
+</body>
+</html>
