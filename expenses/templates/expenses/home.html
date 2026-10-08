@@ -1,42 +1,59 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
     <title>Expense Tracker</title>
+    <link rel="stylesheet" href="{% static 'expenses/style.css' %}">
 </head>
 
 <body>
 
-    <h1>Welcome to my Expense Tracker!</h1>
+    <div class="container">
 
-    <a href="/add-expense/">
-        <button>Add Expense</button>
-    </a>
+        <h1>Expense Tracker</h1>
 
-    <h2>Your Expenses</h2>
+        <a href="{% url 'add-expense' %}" class="add-button">
+            + Add Expense
+        </a>
 
-    {% for expense in expenses %}
+        <h2>Your Expenses</h2>
 
-        <div>
-            <p><strong>{{ expense.category }}</strong></p>
-            <p>Amount: ₹{{ expense.amount }}</p>
-            <p>{{ expense.description }}</p>
-            <p>Date: {{ expense.date }}</p>
-             
-            <a href="/edit-expense/{{ expense.id }}/">
-                <button>Edit</button>
-            </a>
-            <a href="/delete-expense/{{ expense.id }}/">
-                <button>Delete</button>
-            </a>
-        </div>
+        {% for expense in expenses %}
 
-        <hr>
+            <div class="expense-card">
 
-    {% empty %}
+                <p><strong>{{ expense.category }}</strong></p>
 
-        <p>No expenses added yet.</p>
+                <p>Amount: ₹{{ expense.amount }}</p>
 
-    {% endfor %}
+                <p>{{ expense.description }}</p>
+
+                <p>Date: {{ expense.date }}</p>
+
+                <div class="actions">
+
+                    <a href="{% url 'edit-expense' expense.id %}"
+                       class="edit-button">
+                        Edit
+                    </a>
+
+                    <a href="{% url 'delete-expense' expense.id %}"
+                       class="delete-button">
+                        Delete
+                    </a>
+
+                </div>
+
+            </div>
+
+        {% empty %}
+
+            <p>No expenses added yet.</p>
+
+        {% endfor %}
+
+    </div>
 
 </body>
 </html>
